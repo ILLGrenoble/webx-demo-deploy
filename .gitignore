@@ -1,0 +1,6 @@
+nginx/certs/*
+!nginx/certs/.gitkeep
+*.env
+
+.idea
+.vscode

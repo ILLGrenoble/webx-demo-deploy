@@ -1,0 +1,6 @@
+version: "3"
+
+services:
+
+  server:
+    command: "java -jar /app/webx-demo.jar --standalone-host $WEBX_STANDALONE_HOST"

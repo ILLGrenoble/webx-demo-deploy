@@ -55,9 +55,8 @@ done
 
 # Verify env file parameter
 if [[ ! -f .env ]]; then
-	echo "You need to create a .env file (even if it is empty). You can use this file for example to specify the WEBX_VERSION."
-	usage
-	exit
+	echo "Creating a .env file. You can use this, for example, to specify the WEBX_VERSION environment variable."
+  touch .env
 fi
 
 SSL_CRT_LOCATION=nginx/certs/web.crt

@@ -6,7 +6,7 @@ The WebX Demo Server is provided to test the [WebX Relay](https://github.com/ILL
 
 The WebX Demo Client uses the [WebX Client](https://github.com/ILLGrenoble/webx-client) NPM library that renders the remote desktop to the user's browser, receiving desktop data from the websocket connected to the relay.
 
-This deployment can be used as part of the [WebX Engine development environment](https://github.com/ILLGrenoble/webx-dev-env) to connect to a running [WebX Engine](https://github.com/ILLGrenoble/webx-engine) or can be used to provide a full multi-user demo of the WebX stack including the [WebX Router](https://github.com/ILLGrenoble/webx-router) and [WebX Session Manager](https://github.com/ILLGrenoble/webx-session-manager) which provide full login access to the WebX environment. 
+This deployment can be used as part of the [WebX Dev Workspace](https://github.com/ILLGrenoble/webx-dev-workspace) to connect to a running [WebX Engine](https://github.com/ILLGrenoble/webx-engine) or can be used to provide a full multi-user demo of the WebX stack including the [WebX Router](https://github.com/ILLGrenoble/webx-router) and [WebX Session Manager](https://github.com/ILLGrenoble/webx-session-manager) which provide full login access to the WebX environment. 
 
 ## Deploy the demo for WebX Engine development environment
 
@@ -57,4 +57,52 @@ The Nginx reverse proxy runs on the standard 80/443 ports. If you're running the
 If you're running in <em>standalone</em> mode you'll see the hostname of the WebX Engine server: all you need to do is connect.
 
 If you're running in a multi-user environment then you'll have to specify the host of the WebX Server and specify the username and password.
+
+## Running the demo with pre-configured WebX Host
+
+To simplify the deployment of the full WebX Remote Desktop stack on a server, this project contains a couple of Dockerfiles to build and launch a containerised WebX Host with either a multiuser environment or a standalone WebX Engine.
+
+### Using the multiuser environment
+
+Go to the `webx-host` folder then build and run the multiuser WebX host:
+
+```
+cd webx-host
+docker build -t webx-host-multiuser -f webx-host-multiuser.dockerfile .
+docker run --rm --name webx-host-multiuser -p 5555-5558:5555-5558 webx-host-multiuser
+```
+
+In the container the WebX Router and WebX Session Manager are running and waiting for connection requests.
+
+You can then run the demo is multiuser mode:
+
+```
+cd ..
+./deploy.sh
+```
+
+Open a browser at https://localhost and enter the host `host.docker.internal`. For the username and password you can choose from the preconfigured users of the webx-host container (mario, luigi, peach, toad, yoshi and bowser) - the password is the same as the username.
+
+### Using the standalone environment
+
+Go to the `webx-host` folder then build and run the standalone WebX host:
+
+```
+cd webx-host
+docker build -t webx-host-standalone -f webx-host-standalone.dockerfile .
+docker run --rm --name webx-host-standalone -p 5555-5558:5555-5558 webx-host-standalone
+```
+
+In the container Xorg and the Xfce window manager have been launched. A WebX Engine is running too waiting for connection events.
+
+You can then run the demo is standalone mode:
+
+```
+cd ..
+./deploy.sh -sh host.docker.internal
+```
+
+Open a browser at https://localhost and connect to the WebX Remote Desktop.
+
+
 

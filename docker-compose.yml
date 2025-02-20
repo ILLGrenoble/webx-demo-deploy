@@ -27,7 +27,7 @@ services:
       - client
       
   client:
-    image: ghcr.io/illgrenoble/webx-demo-client:${WEBX_VERSION:-1.0.0}
+    image: ghcr.io/illgrenoble/webx-demo-client:${WEBX_VERSION:-1.1.0}
     platform: linux/amd64
     restart: always
     extra_hosts:

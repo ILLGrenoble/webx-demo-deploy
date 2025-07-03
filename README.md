@@ -6,7 +6,7 @@ The WebX Demo Server is provided to test the [WebX Relay](https://github.com/ILL
 
 The WebX Demo Client uses the [WebX Client](https://github.com/ILLGrenoble/webx-client) NPM library that renders the remote desktop to the user's browser, receiving desktop data from the websocket connected to the relay.
 
-This deployment can be used as part of the [WebX Dev Workspace](https://github.com/ILLGrenoble/webx-dev-workspace) to connect to a running [WebX Engine](https://github.com/ILLGrenoble/webx-engine) or can be used to provide a full multi-user demo of the WebX stack including the [WebX Router](https://github.com/ILLGrenoble/webx-router) and [WebX Session Manager](https://github.com/ILLGrenoble/webx-session-manager) which provide full login access to the WebX environment. 
+This deployment can be used as part of the [WebX Dev Workspace](https://github.com/ILLGrenoble/webx-dev-workspace) to connect to a running [WebX Engine](https://github.com/ILLGrenoble/webx-engine) or can be used to provide a full multi-user demo of the WebX stack thanks includes the [WebX Router](https://github.com/ILLGrenoble/webx-router), providing full login access to the WebX environment. 
 
 ## Deploy the demo for WebX Engine development environment
 
@@ -28,7 +28,7 @@ The WebX Demo Server uses the internal host network to connect to WebX on local 
 
 ## Deploy the demo for multi-user access
 
-If you have the full WebX server stack running (WebX Router, Session Manager and Engine) you can deploy the demo for multi-user access. The WebX server needs to be entered using the web interface and user's are requested to authenticate to create a WebX session on the server. 
+If you have the full WebX server stack running (WebX Router and Engine) you can deploy the demo for multi-user access. The WebX server needs to be entered using the web interface and user's are requested to authenticate to create a WebX session on the server. 
 
 To deploy the demo in this mode use the following command:
 
@@ -72,7 +72,7 @@ docker build -t webx-host-multiuser -f webx-host-multiuser.dockerfile .
 docker run --rm --name webx-host-multiuser -p 5555-5558:5555-5558 webx-host-multiuser
 ```
 
-In the container the WebX Router and WebX Session Manager are running and waiting for connection requests.
+In the container the WebX Router is running and waiting for connection requests.
 
 You can then run the demo is multiuser mode:
 

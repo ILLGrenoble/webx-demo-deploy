@@ -13,8 +13,6 @@ RUN curl https://sh.rustup.rs -sSf > /tmp/rustup-init.sh \
     && sh /tmp/rustup-init.sh -y \
     && rm -rf /tmp/rustup-init.sh
 
-RUN ~/.cargo/bin/rustup default nightly
-
 # Create standard users
 RUN useradd -m -U -s /bin/bash -p $(openssl passwd -6 'mario') mario \
     && useradd -m -U -s /bin/bash -p $(openssl passwd -6 'luigi') luigi \
@@ -29,7 +27,7 @@ RUN sed -i 's/console/anybody/g' /etc/X11/Xwrapper.config \
     && cp /etc/X11/xrdp/xorg.conf /etc/X11/xorg.conf
 
 RUN mkdir /var/log/webx \
-    && mkdir -p /etc/webx/webx-session-manager
+    && mkdir -p /etc/webx
 
 # Get and build latest stable WebX Engine
 RUN git clone https://github.com/ILLGrenoble/webx-engine \
@@ -43,20 +41,14 @@ RUN git clone https://github.com/ILLGrenoble/webx-router \
     && cd /app/webx-router \
     && ~/.cargo/bin/cargo build --release \
     && cp target/release/webx-router /usr/bin/webx-router \
-    && cp config.yml /etc/webx/webx-router-config.yml
-
-# Get and build latest stable WebX Session Manager
-RUN git clone https://github.com/ILLGrenoble/webx-session-manager \
-    && cd /app/webx-session-manager \
-    && ~/.cargo/bin/cargo build --release \
-    && cp target/release/server /usr/bin/webx-session-manager \
-    && cp config.example.yml /etc/webx/webx-session-manager-config.yml \
+    && cp config.example.yml /etc/webx/webx-router-config.yml \
     && cp bin/pam-webx /etc/pam.d/webx \
-    && cp bin/startwm.sh /etc/webx/webx-session-manager/startwm.sh
+    && cp bin/startwm.sh /etc/webx/startwm.sh
+
 
 # Update X config to allow creation of xfce4 desktop manager
-RUN sed -i 's/startxfce4/dbus-launch startxfce4/g' /etc/webx/webx-session-manager/startwm.sh \
-    && sed -i 's|/etc/X11/xrdp/xorg.conf|xorg.conf|g' /etc/webx/webx-session-manager-config.yml \
+RUN sed -i 's/startxfce4/dbus-launch startxfce4/g' /etc/webx/startwm.sh \
+    && sed -i 's|/etc/X11/xrdp/xorg.conf|xorg.conf|g' /etc/webx/webx-router-config.yml \
     && sed -i 's/console/anybody/g' /etc/X11/Xwrapper.config \
     && echo "needs_root_rights = no" | tee -a /etc/X11/Xwrapper.config \
     && cp /etc/X11/xrdp/xorg.conf /etc/X11/xorg.conf

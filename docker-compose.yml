@@ -27,7 +27,7 @@ services:
       - client
       
   client:
-    image: ghcr.io/illgrenoble/webx-demo-client:${WEBX_VERSION:-1.2.0}
+    image: ghcr.io/illgrenoble/webx-demo-client:${WEBX_VERSION:-1.3.0}
     platform: linux/amd64
     restart: always
     extra_hosts:
@@ -38,7 +38,7 @@ services:
         max-file: "3"
 
   server:
-    image: ghcr.io/illgrenoble/webx-demo-server:${WEBX_VERSION:-1.2.0}
+    image: ghcr.io/illgrenoble/webx-demo-server:${WEBX_VERSION:-1.3.0}
     platform: linux/amd64
     restart: always
     volumes:

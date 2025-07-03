@@ -1,3 +1,8 @@
+1.3.0 03/037/2025
+================
+ * Update the WebX Demo Client and Server (1.3.0)
+ * Remove references to the WebX Session Manager
+
 1.2.0 31/03/2025
 ================
  * Update the WebX Demo Client and Server (1.2.0)
